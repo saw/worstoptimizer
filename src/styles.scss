@@ -3,3 +3,12 @@
 @import "~bulma/sass/grid/_all.sass";
 @import "~bulma/sass/elements/_all.sass";
 @import "~bulma/sass/layout/_all.sass";
+@import "~highlight.js/styles/github-gist.css";
+
+#output {
+    // box-shadow: inset 1px 1px 5px rgba(0,0,0,0.5);
+    // border-radius: 1rem;
+    // padding: 1rem;
+    max-height: 60vh;
+    overflow: auto;
+}
