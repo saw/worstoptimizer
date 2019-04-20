@@ -2,6 +2,7 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     watch: true,
     output: {
@@ -20,6 +21,9 @@ module.exports = {
             // Load a custom template (lodash by default)
             template: path.resolve(__dirname, 'src', 'index.html'),
         }),
+        new CopyPlugin([
+            { from: path.resolve(__dirname, 'src', 'CNAME'), to: path.resolve(__dirname, 'docs') },
+        ]),
         new CleanWebpackPlugin(),
     ],
     module: {
