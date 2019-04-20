@@ -1,18 +1,26 @@
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
-    // watch: true,
+    watch: true,
     output: {
         path: path.resolve(__dirname, 'docs'),
-        filename: 'out.bundle.js'
+        filename: 'out.[chunkhash].js'
     },
     plugins:[
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: '[name].css',
-            chunkFilename: '[id].css',
-        })
+            filename: '[name].[chunkhash].css',
+
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Premature Optimization',
+            // Load a custom template (lodash by default)
+            template: path.resolve(__dirname, 'src', 'index.html'),
+        }),
+        new CleanWebpackPlugin(),
     ],
     module: {
         rules: [{

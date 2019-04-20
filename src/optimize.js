@@ -3,10 +3,18 @@ const traverse = require("@babel/traverse").default;
 const generate = require('@babel/generator').default;
 const t = require('@babel/types');
 
+function wait(time) {
+    return new Promise((resolve, reject) => {
+        setTimeout(()=> {
+            resolve();
+        }, time);
+    });
+}
+
 async function trans(fileData) {
     const cache = {};
     // give ui a chance to update before this starts running
-    await Promise.resolve();
+    await wait(0);
     let ast;
     ast = parser.parse(fileData);
     traverse(ast, {
