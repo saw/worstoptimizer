@@ -20,7 +20,7 @@ async function transform(fileData) {
     ast = parser.parse(fileData);
     traverse(ast, {
         Literal(path) {
-            if(!path.getFunctionParent()) {
+            if(!path.getFunctionParent() || path.parentPath.isObjectProperty()) {
                 return;
             }
             let cacheKey = `${path.node.type}_${path.node.value}`;
