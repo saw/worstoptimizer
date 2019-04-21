@@ -1,4 +1,3 @@
-require('./styles.scss');
 import './styles.scss';
 const button = document.querySelector('button');
 const input = document.querySelector('#input');
