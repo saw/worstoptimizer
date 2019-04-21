@@ -1,8 +1,9 @@
-const parser = require('@babel/parser');
-const traverse = require("@babel/traverse").default;
-const generate = require('@babel/generator').default;
-const t = require('@babel/types');
-
+import generate from '@babel/generator';
+import traverse from '@babel/traverse';
+import * as parser from '@babel/parser';
+import hljs from 'highlight.js';
+import javascript from 'highlight.js/lib/languages/javascript';
+hljs.registerLanguage('javascript', javascript);
 function wait(time) {
     return new Promise((resolve, reject) => {
         setTimeout(()=> {
@@ -11,7 +12,7 @@ function wait(time) {
     });
 }
 
-async function trans(fileData) {
+async function transform(fileData) {
     const cache = {};
     // give ui a chance to update before this starts running
     await wait(0);
@@ -28,7 +29,7 @@ async function trans(fileData) {
             } else {
                 const id = path.scope.generateUidIdentifier('_');
                 cache[cacheKey] = {id, val: path.node.value};
-                const program = path.findParent(t.isProgram);
+                const program = path.findParent(path => path.isProgram());
                 program.scope.push({id, init: path.node, kind: "const"});
                 path.replaceWith(id);
             }
@@ -37,4 +38,4 @@ async function trans(fileData) {
     return generate(ast, {}, fileData);
 }
 
-module.exports = trans;
+export { transform, hljs }

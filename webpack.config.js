@@ -5,9 +5,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     // watch: true,
+    mode: 'production',
+    optimization: {
+        usedExports: true,
+        sideEffects: false
+    },
     output: {
         path: path.resolve(__dirname, 'docs'),
-        filename: 'out.[chunkhash].js'
+        filename: '[name].[chunkhash].js',
+        chunkFilename: '[name].[chunkhash].js'
     },
     plugins:[
         new MiniCssExtractPlugin({
